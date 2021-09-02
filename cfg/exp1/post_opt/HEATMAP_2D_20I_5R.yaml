@@ -1,0 +1,7 @@
+infoset:
+  output_path: null
+  load_paths: 
+    - CMAES: data/exp1/CMAES_2D_20I_5R.pkl
+    - LIOH: data/exp1/LIOH_2D_20I_5R.pkl
+visualizer:
+  id: heatmap

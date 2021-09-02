@@ -1,0 +1,49 @@
+task_distribution:
+  id: cocobenchmark
+  internals:
+    max_budget_per_task: 20
+    batch_size: 100
+  save_candidates: false
+  simplified_loss: true
+  generator_config:
+    mode: deterministic
+    repeat: 5
+    f_ids:
+      - 5
+    i_ids:
+      - 101
+      - 101
+    dim: 2
+  targets_config:
+    amount: 10
+    precision: -3
+optimizer:
+  id: LIOH
+  seed: 42
+  dim: 2
+  population_size: 4
+  blocks:
+  - type: lstm
+    args:
+      input_size: 2
+      hidden_size: 16
+      num_layers: 2
+    initialization:
+      type: normal
+      args:
+        mean: 0.0
+        std: 0.5
+  - type: linear
+    args:
+      in_features: 16
+      out_features: 1
+    activation:
+      type: tanh
+    initialization:
+      type: normal
+      args:
+        mean: 0.0
+        std: 0.5
+infoset:
+  output_path: data/exp1/LIOH_2D_20I_5R.pkl
+  load_paths: null 

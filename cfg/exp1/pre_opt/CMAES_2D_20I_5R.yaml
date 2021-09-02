@@ -1,0 +1,33 @@
+task_distribution:
+  id: cocobenchmark
+  internals:
+    max_budget_per_task: 20
+    batch_size: 100
+  save_candidates: false
+  simplified_loss: true
+  generator_config:
+    mode: deterministic
+    repeat: 5
+    f_ids:
+      - 5
+    i_ids:
+      - 101
+      - 120
+    dim: 2
+  targets_config:
+    amount: 10
+    precision: -3
+optimizer:
+  id: CMAES
+  dim: 2
+  x0_interval:
+    - 5
+    - -5
+  sigma0: 3
+  maxiter: 20
+  bounds:
+    - -5
+    - 5
+infoset:
+  output_path: data/exp1/CMAES_2D_20I_5R.pkl
+  load_paths: null

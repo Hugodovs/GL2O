@@ -1,0 +1,61 @@
+task_distribution:
+  id: cocobenchmark
+  internals:
+    max_budget_per_task: 20
+    batch_size: 100
+  save_candidates: false
+  simplified_loss: true
+  generator_config:
+    mode: deterministic
+    repeat: 5
+    f_ids:
+      - 5
+    i_ids:
+      - 101
+      - 101
+    dim: 2
+  targets_config:
+    amount: 10
+    precision: -3
+meta_optimizer:
+  id: TruncatedRealMutatorGA_Table
+  workers_per_rank: 50
+  num_elite: 5
+  num_parents: 20
+  sigma_initial: 0.3
+  sigma_min: 0.01
+  sigma_decay: 0.95
+  global_seed: 42141
+  output_folder: data/exp1/train/LIOH_2D_20I_5R
+  save_steps: 1
+  verbose: 1
+optimizer:
+  id: LIOH
+  seed: 42
+  dim: 2
+  population_size: 5
+  blocks:
+  - type: lstm
+    args:
+      input_size: 2
+      hidden_size: 16
+      num_layers: 2
+    initialization:
+      type: normal
+      args:
+        mean: 0.0
+        std: 0.5
+  - type: linear
+    args:
+      in_features: 16
+      out_features: 1
+    activation:
+      type: tanh
+    initialization:
+      type: normal
+      args:
+        mean: 0.0
+        std: 0.5
+infoset:
+  output_path: null
+  load_paths: null 
