@@ -29,7 +29,7 @@ class RealMutator(BaseGA):
         # Generate Initial genes
         self.initial_genotypes = []
         for i in range(self.workers_per_rank):
-            initial_genotype = self.rng_genes_list[i].randint(2**16 - 1)
+            initial_genotype = self.rng_genes_list[i].randint(2**32 - 1)
             self.initial_genotypes.append([[initial_genotype, self.sigma]])
 
         self.members = [Member(initial_phenotype=self.initial_guess,

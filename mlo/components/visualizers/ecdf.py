@@ -13,14 +13,18 @@ class ECDFVisualizer(Visualizer):
             run = np.array(run)
             evals = run[:, 0]
             losses = run[:, 1]
-            
+
             rts = []
             for target in targets:
-                rt = np.where(losses <= target)[0]
-                if len(rt) == 0:
+                idx = None
+                for i, loss in enumerate(losses):
+                    if loss <= target:
+                        idx = i
+                        break
+                if idx == None:
                     rt = np.inf
-                else: 
-                    rt = evals[rt[0]]
+                else:
+                    rt = evals[idx]
                 rts.append(rt)
             return rts
 
@@ -133,7 +137,7 @@ class ECDFVisualizer(Visualizer):
         fig.update_layout(width=500, height=500, font_family='Serif', font_size=12, margin_l=5, margin_t=5, margin_b=5, margin_r=5)
         
 
-        fig.write_image("images\ecdf_EXP1_2D.pdf")                
+        fig.write_image(self.output_path)                
        
         exit()
 

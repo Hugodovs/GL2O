@@ -12,7 +12,7 @@ task_distribution:
       - 5
     i_ids:
       - 101
-      - 120
+      - 101
     dim: 2
   targets_config:
     amount: 10

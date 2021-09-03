@@ -56,34 +56,3 @@ def get_best_phenotype(folder_path):
         random_table = table_rng.randn(20000000)
         return DeepGATableMember(initial_guess, genotypes[best_idx], random_table).phenotype
 
-
-
-def get_best_phenotype_generator(folder_path):
-
-    import json
-    import numpy as np
-    #from DNE4py.optimizers.deepga.member import Member as DeepGAMember
-    from .deepga_table.member import Member as DeepGATableMember
-
-    # Read Input:
-    costs = load_mpidata("costs", f"{folder_path}")
-    genotypes = load_mpidata("genotypes", f"{folder_path}")
-    initial_guess = load_mpidata("initial_guess", f"{folder_path}")
-
-    # Load Member:
-    with open(f'{folder_path}/info.json', 'rb') as f:
-        info = json.load(f)
-    _id = info['id']
-    nb_generations = info['nb_generations']
-
-    if _id == 'TruncatedRealMutatorGA_Table':
-
-        global_seed = info['global_seed']
-        table_rng = np.random.RandomState(global_seed)
-        random_table = table_rng.randn(20000000)
-
-        # Select Best Idxs:
-        min_idxs = np.argmin(costs, axis=1)
-        for i in range(nb_generations):
-            genotype = genotypes[i, min_idxs[i]]
-            yield DeepGATableMember(initial_guess, genotype, random_table).phenotype

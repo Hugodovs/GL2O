@@ -37,9 +37,27 @@ class LIOH(Optimizer):
         self.lstm = torch_layers[0]
         self.mlp = nn.Sequential(*torch_layers[1:])
 
+        #self.model = nn.ModuleDict(OrderedDict({
+        #    'lstm': self.lstm, 'mlp': self.mlp}))
+        
         self.model = nn.ModuleDict(OrderedDict({
             'lstm': self.lstm, 'mlp': self.mlp}))
+        
+        #print(self.model)
+        
+        #def count_parameters(model):
+        #    total_params = 0
+        #    for name, parameter in model.named_parameters():
+        #        if not parameter.requires_grad: 
+        #            continue
+        #        param = parameter.numel()
+        #        print(name, param)
+        #        total_params+=param
+        #    print(f"Total Trainable Params: {total_params}")
+        #    return total_params
 
+        #count_parameters(self.model)
+        
         self.first_input = True
 
         if (hasattr(self, "load_path")):

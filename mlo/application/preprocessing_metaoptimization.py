@@ -1,3 +1,5 @@
+import cProfile
+
 import numpy as np
 
 class PreprocessingMetaOptimizationExperiment():
@@ -10,8 +12,14 @@ class PreprocessingMetaOptimizationExperiment():
 
     def run(self):
         print("PreprocessingMetaOptimizationExperiment")
-
+        
+        initial_guess = self.optimizer.get_params()
         self.meta_optimizer.initialize(self.optimizer.get_params())
+        
+        #with cProfile.Profile() as pr:
+        #    self.meta_optimizer.run(self.meta_loss, steps=20)
+        #pr.dump_stats('profile_results.prof')
+
         self.meta_optimizer.run(self.meta_loss, steps=5)
 
 
@@ -51,14 +59,18 @@ class PreprocessingMetaOptimizationExperiment():
                 run = np.array(run)
                 evals = run[:, 0]
                 losses = run[:, 1]
-                
+
                 rts = []
                 for target in targets:
-                    rt = np.where(losses <= target)[0]
-                    if len(rt) == 0:
+                    idx = None
+                    for i, loss in enumerate(losses):
+                        if loss >= target:
+                            idx = i
+                            break
+                    if idx == None:
                         rt = np.inf
-                    else: 
-                        rt = evals[rt[0]]
+                    else:
+                        rt = evals[idx]
                     rts.append(rt)
                 return rts
 

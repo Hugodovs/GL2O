@@ -19,9 +19,10 @@ task_distribution:
     precision: -3
 optimizer:
   id: LIOH
+  load_path: data/exp1/train/LIOH_2D_20I_5R
   seed: 42
   dim: 2
-  population_size: 4
+  population_size: 5
   blocks:
   - type: lstm
     args:

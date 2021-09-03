@@ -1,6 +1,7 @@
 import numpy as np
 import json
 import random
+import sys
 
 from abc import ABC, abstractmethod
 
@@ -114,7 +115,8 @@ class BaseGA:
             # =================== LOGGING =====================================
             if self.verbose == 1:
                 if self._rank == 0:
-                    print(f"Generation: {self.generation}/{steps}")
+                    print(f"Generati22on: {self.generation}/{steps}")
+                    #sys.stdout.flush()
             elif self.verbose == 2:
                 self.logger.debug(f"\nGeneration: {self.generation}/{steps}")
             # =================== LOGGING =====================================

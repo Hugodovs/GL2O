@@ -16,7 +16,7 @@ class MPISaver:
         except:
             pass
 
-        assert os.path.isfile(self.file_path) == False, f'You should delete all files inside the folder: {self.folder_path} | {self.file_path}'
+        #assert os.path.isfile(self.file_path) == False, f'You should delete all files inside the folder: {self.folder_path} | {self.file_path}'
 
     def write(self, data):
         with open(self.file_path, 'ab') as f:
@@ -34,11 +34,14 @@ class MPILogger:
         except:
             pass
 
-        assert os.path.isfile(self.file_path) == False, f'You should delete all files inside the folder: {self.folder_path} | {self.file_path}'
+        #assert os.path.isfile(self.file_path) == False, f'You should delete all files inside the folder: {self.folder_path} | {self.file_path}'
 
-        logging.basicConfig(filename=self.file_path,
-                            level=logging.DEBUG,
-                            format='%(message)s')
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.DEBUG)
+        self.file_handler = logging.FileHandler(self.file_path, 'w')
+        self.logger.addHandler(self.file_handler)
+         
 
     def debug(self, msg):
-        logging.debug(msg)
+        self.logger.debug(msg)
+        exit()
