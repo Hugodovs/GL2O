@@ -37,7 +37,7 @@ class Member:
         r'''create a new gene and update genotype and phenotype'''
 
         # Increase genotype:
-        seed = rng_genes.randint(0, 2 ** 16 - 1)
+        seed = rng_genes.randint(0, 2 ** 32 - 1)
         self.genotype.append([seed, sigma])
 
         # Mutate phenotype:
